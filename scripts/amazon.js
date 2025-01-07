@@ -69,17 +69,6 @@ forEach((button) => {
         const quantity = Number(selectQuantity.value);
         console.log(quantity);
 
-    
-
-        const addedmessage = document.querySelector(`.js-added-verify-${productId}`);
-        addedmessage.classList.add(`added-to-cart-visible`);
-
-        
-        setTimeout(() => {
-            addedmessage.classList.remove(`added-to-cart-visible`);
-        }, 2000);
-
-
         let matchingItem;
 
         cart.forEach((item) => {
@@ -107,7 +96,19 @@ forEach((button) => {
 
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
-       
+        
+        const addedmessage = document.querySelector(`.js-added-verify-${productId}`);
+        addedmessage.classList.add(`added-to-cart-visible`);
+
+        if(addedMessageTimeouts[productId]){
+            clearTimeout(addedMessageTimeouts[productId]);
+        }
+
+        addedMessageTimeouts[productId] = setTimeout(() => {
+            addedmessage.classList.remove(`added-to-cart-visible`);
+        }, 2000);     
+        
+
         
 
         console.log(cart);
